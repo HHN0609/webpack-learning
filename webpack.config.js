@@ -1,5 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin')
 module.exports = {
     entry: path.join(__dirname, './src/index.js'),
     output: {
@@ -10,7 +12,7 @@ module.exports = {
         // 指定资源模块输出的位置，以及名字，这里的位置是相对于path来说的
         assetModuleFilename: 'images/[contenthash].[ext]'
     },
-    mode: 'development',
+    mode: 'production',
     // 配置sourc-map可以让浏览器的报错的信息锁定到**打包前**代码的具体位置
     devtool: 'inline-source-map',
     plugins: [
@@ -21,7 +23,8 @@ module.exports = {
             filename: 'app.html',
             // <script>标签注入到那个地方
             inject: 'body'
-        })
+        }),
+        new MiniCssExtractPlugin()
     ],
     // 配置建议的本地服务器，用于实时刷新
     devServer: {
@@ -60,7 +63,17 @@ module.exports = {
                         maxSize: 4 * 1024 * 1024
                     }
                 }
+            },
+            {
+                test: /\.(css)$/,
+                // 之前的style-loader的作用是把css内联到<style>标签里，这里对css进行抽离，就不用这个loader了
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
             }
+        ]
+    },
+    optimization: {
+        minimizer: [
+            new CssMinimizerWebpackPlugin()
         ]
     }
 }
