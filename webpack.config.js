@@ -2,6 +2,8 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin')
+const yaml = require('yaml')
+
 module.exports = {
     entry: path.join(__dirname, './src/index.js'),
     output: {
@@ -77,7 +79,17 @@ module.exports = {
             {
                 test: /\.xml$/,
                 use: 'xml-loader'
-            }
+            },
+            {
+                //通过自定义的parser代替特定的webpack loader，可以将toml,yaml,json5等文件作为JSON模块导入
+                // parser是要用require引入的，loader不用
+                // 本质就是把yaml等类型的文件转化成json类型
+                test: /\.yaml$/,
+                type: 'json',
+                parser: {
+                    parse: yaml.parse
+                }
+            } 
         ]
     },
     optimization: {

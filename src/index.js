@@ -4,8 +4,10 @@ import svgsrc from './asset/topic.svg';
 import text from './asset/test.txt'
 import './style/style1.css'
 import notes from './asset/data/data1.xml'
+import yamlData from './asset/data/data2.yaml'
 helloWorld()
-console.log(notes)
+console.log("data from .xml", notes)
+console.log("data from .yaml:", yamlData)
 const png = document.createElement('img')
 png.src = imgsrc
 document.body.appendChild(png)
