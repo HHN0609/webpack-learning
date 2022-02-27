@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
     entry: path.join(__dirname, './src/index.js'),
     output: {
@@ -21,7 +22,8 @@ module.exports = {
             filename: 'app.html',
             // <script>标签注入到那个地方
             inject: 'body'
-        })
+        }),
+        new MiniCssExtractPlugin()
     ],
     // 配置建议的本地服务器，用于实时刷新
     devServer: {
@@ -62,9 +64,9 @@ module.exports = {
                 }
             },
             {
-                test: /\.(css|less)$/,
-                // 顺序不可颠倒, 解析的顺序是：先用less-loader解析less文件为css文件，在把css文件装入html文档里
-                use: ['style-loader', 'css-loader', 'less-loader']
+                test: /\.(css)$/,
+                // 之前的style-loader的作用是把css内联到<style>标签里，这里对css进行抽离，就不用这个loader了
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
             }
         ]
     }
