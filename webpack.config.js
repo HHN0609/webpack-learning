@@ -2,6 +2,8 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin')
+const yaml = require('yaml')
+
 module.exports = {
     entry: path.join(__dirname, './src/index.js'),
     output: {
@@ -12,7 +14,7 @@ module.exports = {
         // 指定资源模块输出的位置，以及名字，这里的位置是相对于path来说的
         assetModuleFilename: 'images/[contenthash].[ext]'
     },
-    mode: 'production',
+    mode: 'development',
     // 配置sourc-map可以让浏览器的报错的信息锁定到**打包前**代码的具体位置
     devtool: 'inline-source-map',
     plugins: [
@@ -65,10 +67,29 @@ module.exports = {
                 }
             },
             {
+                // 从css中引入字体，注意类型
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                type: 'asset/resource'
+            },
+            {
                 test: /\.(css)$/,
                 // 之前的style-loader的作用是把css内联到<style>标签里，这里对css进行抽离，就不用这个loader了
                 use: [MiniCssExtractPlugin.loader, 'css-loader']
-            }
+            },
+            {
+                test: /\.xml$/,
+                use: 'xml-loader'
+            },
+            {
+                //通过自定义的parser代替特定的webpack loader，可以将toml,yaml,json5等文件作为JSON模块导入
+                // parser是要用require引入的，loader不用
+                // 本质就是把yaml等类型的文件转化成json类型
+                test: /\.yaml$/,
+                type: 'json',
+                parser: {
+                    parse: yaml.parse
+                }
+            } 
         ]
     },
     optimization: {
