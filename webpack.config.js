@@ -73,6 +73,10 @@ module.exports = {
                 test: /\.(css)$/,
                 // 之前的style-loader的作用是把css内联到<style>标签里，这里对css进行抽离，就不用这个loader了
                 use: [MiniCssExtractPlugin.loader, 'css-loader']
+            },
+            {
+                test: /\.xml$/,
+                use: 'xml-loader'
             }
         ]
     },
