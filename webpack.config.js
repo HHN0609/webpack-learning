@@ -12,7 +12,7 @@ module.exports = {
         // 指定资源模块输出的位置，以及名字，这里的位置是相对于path来说的
         assetModuleFilename: 'images/[contenthash].[ext]'
     },
-    mode: 'production',
+    mode: 'development',
     // 配置sourc-map可以让浏览器的报错的信息锁定到**打包前**代码的具体位置
     devtool: 'inline-source-map',
     plugins: [

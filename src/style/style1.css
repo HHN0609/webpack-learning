@@ -6,4 +6,7 @@
 }
 .hello{
     color: red;
+    width: 100px;
+    height: 100px;
+    background-image: url('../asset/topic.svg');
 }
