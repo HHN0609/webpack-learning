@@ -65,6 +65,11 @@ module.exports = {
                 }
             },
             {
+                // 从css中引入字体，注意类型
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                type: 'asset/resource'
+            },
+            {
                 test: /\.(css)$/,
                 // 之前的style-loader的作用是把css内联到<style>标签里，这里对css进行抽离，就不用这个loader了
                 use: [MiniCssExtractPlugin.loader, 'css-loader']
