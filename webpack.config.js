@@ -60,6 +60,11 @@ module.exports = {
                         maxSize: 4 * 1024 * 1024
                     }
                 }
+            },
+            {
+                test: /\.(css|less)$/,
+                // 顺序不可颠倒, 解析的顺序是：先用less-loader解析less文件为css文件，在把css文件装入html文档里
+                use: ['style-loader', 'css-loader', 'less-loader']
             }
         ]
     }
