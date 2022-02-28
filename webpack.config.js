@@ -89,7 +89,29 @@ module.exports = {
                 parser: {
                     parse: yaml.parse
                 }
-            } 
+            },
+            {
+                // 用babel来和webpack配合，让代码适配低版本浏览器
+                // 涉及到的package:
+                // "@babel/core"
+                // "@babel/plugin-transform-runtime"
+                // "@babel/preset-env"
+                // "@babel/runtime"
+                // "babel-loader"
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env'],
+                        plugins: [
+                            [
+                                '@babel/plugin-transform-runtime'
+                            ]
+                        ]
+                    }
+                }
+            }
         ]
     },
     optimization: {
