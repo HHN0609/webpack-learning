@@ -5,9 +5,15 @@ const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin')
 const yaml = require('yaml')
 
 module.exports = {
-    entry: path.join(__dirname, './src/index.js'),
+    // entry: path.join(__dirname, './src/index.js'),
+    // 多入口配置
+    entry: {
+        index: path.join(__dirname, './src/index.js'),
+        another: path.join(__dirname, './src/another-module.js')
+    },
     output: {
-        filename: 'bundle.js',
+        // 多入口文件要对出口的文件进行命名设置
+        filename: '[name].bundle.js',
         path: path.join(__dirname, './dist'),
         // 输出的时候清理dist文件夹里面的内容
         clean: true,
