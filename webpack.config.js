@@ -5,19 +5,25 @@ const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin')
 const yaml = require('yaml')
 
 module.exports = {
+    // 单一入口
     // entry: path.join(__dirname, './src/index.js'),
-    // 多入口配置
+
+    // 多入口配置，并抽离共同依赖的包
+    // entry: {
+    //     index: {
+    //         import: path.join(__dirname, './src/index.js'),
+    //         dependOn: 'shared'
+    //     },
+    //     another: {
+    //         import: path.join(__dirname, './src/another-module.js'),
+    //         dependOn: 'shared'
+    //     },
+    //     // 把两个模块的共同的模块抽离出来
+    //     shared: 'lodash'
+    // },
     entry: {
-        index: {
-            import: path.join(__dirname, './src/index.js'),
-            dependOn: 'shared'
-        },
-        another: {
-            import: path.join(__dirname, './src/another-module.js'),
-            dependOn: 'shared'
-        },
-        // 把两个模块的共同的模块抽离出来
-        shared: 'lodash'
+        index: path.join(__dirname, './src/index.js'),
+        another: path.join(__dirname, './src/another-module.js')
     },
     output: {
         // 多入口文件要对出口的文件进行命名设置
@@ -131,6 +137,11 @@ module.exports = {
     optimization: {
         minimizer: [
             new CssMinimizerWebpackPlugin()
-        ]
+        ],
+
+        // 用webpack自带的代码split工具对代码进行抽离
+        splitChunks: {
+            chunks: 'all'
+        }
     }
 }
