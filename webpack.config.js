@@ -8,8 +8,16 @@ module.exports = {
     // entry: path.join(__dirname, './src/index.js'),
     // 多入口配置
     entry: {
-        index: path.join(__dirname, './src/index.js'),
-        another: path.join(__dirname, './src/another-module.js')
+        index: {
+            import: path.join(__dirname, './src/index.js'),
+            dependOn: 'shared'
+        },
+        another: {
+            import: path.join(__dirname, './src/another-module.js'),
+            dependOn: 'shared'
+        },
+        // 把两个模块的共同的模块抽离出来
+        shared: 'lodash'
     },
     output: {
         // 多入口文件要对出口的文件进行命名设置
