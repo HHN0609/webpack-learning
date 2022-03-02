@@ -30,7 +30,7 @@ module.exports = {
         // filename: '[name].bundle.js',
         // 为了使得文件内部被修改后（但是打包后文件名字不变），浏览器能够不去读取本地缓存，而是获取最新的文件
         // 就要每次打包的文件名进行hash处理，使得每次打包后的文件名不一样
-        filename: '[name].[contenthash].js',
+        filename: 'scripts/[name].[contenthash].js',
         path: path.join(__dirname, './dist'),
         // 输出的时候清理dist文件夹里面的内容
         clean: true,
