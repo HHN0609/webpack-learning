@@ -26,8 +26,11 @@ module.exports = {
         another: path.join(__dirname, './src/another-module.js')
     },
     output: {
-        // 多入口文件要对出口的文件进行命名设置
-        filename: '[name].bundle.js',
+        // 多入口文件要对出口的文件进行命名设置，这个[name]就指的是原来的文件的名字
+        // filename: '[name].bundle.js',
+        // 为了使得文件内部被修改后（但是打包后文件名字不变），浏览器能够不去读取本地缓存，而是获取最新的文件
+        // 就要每次打包的文件名进行hash处理，使得每次打包后的文件名不一样
+        filename: '[name].[contenthash].js',
         path: path.join(__dirname, './dist'),
         // 输出的时候清理dist文件夹里面的内容
         clean: true,
@@ -141,7 +144,15 @@ module.exports = {
 
         // 用webpack自带的代码split工具对代码进行抽离
         splitChunks: {
-            chunks: 'all'
+            // chunks: 'all'
+            cacheGroups: {
+                // 设置cacheGroups可以第三方的库打包进一个文件，进行缓存，因为这些库并不是要经常修改，就可以把这些第三方的库缓存到本地
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all'
+                }
+            }
         }
     }
 }
