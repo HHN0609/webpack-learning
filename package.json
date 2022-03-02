@@ -4,7 +4,9 @@
   "description": "learn webpack",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --config ./config/webpack.config.js --env development --open",
+    "build": "webpack --config ./config/webpack.config.js --env production"
   },
   "keywords": [
     "webpack"
@@ -12,6 +14,11 @@
   "author": "hehaonan",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/runtime": "^7.17.2",
+    "babel-loader": "^8.2.3",
     "css-loader": "^6.6.0",
     "css-minimizer-webpack-plugin": "^3.4.1",
     "html-webpack-plugin": "^5.5.0",
@@ -19,9 +26,14 @@
     "less-loader": "^10.2.0",
     "mini-css-extract-plugin": "^2.5.3",
     "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "^5.3.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.4",
+    "webpack-merge": "^5.8.0",
     "xml-loader": "^1.2.1",
     "yaml": "^1.10.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   }
 }
