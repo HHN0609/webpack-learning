@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --config ./config/webpack.config.dev.js",
-    "build": "webpack --config ./config/webpack.config.prod.js"
+    "start": "webpack-dev-server --config ./config/webpack.config.js --env development --open",
+    "build": "webpack --config ./config/webpack.config.js --env production"
   },
   "keywords": [
     "webpack"
@@ -29,6 +29,7 @@
     "terser-webpack-plugin": "^5.3.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.4",
+    "webpack-merge": "^5.8.0",
     "xml-loader": "^1.2.1",
     "yaml": "^1.10.2"
   },
