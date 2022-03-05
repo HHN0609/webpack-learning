@@ -6,8 +6,9 @@ import './style/style1.css'
 import notes from './asset/data/data1.xml'
 import yamlData from './asset/data/data2.yaml'
 import _ from 'lodash'
-import { scalarOptions } from "yaml";
-
+import $ from 'jquery'
+// import { scalarOptions } from "yaml";
+console.log($)
 console.log(_.join(['Another', 'module', 'lodash'], '--'))
 
 helloWorld()
@@ -41,3 +42,13 @@ button.addEventListener("click", () => {
         })
 })
 document.body.appendChild(button)
+
+fetch('http://localhost:9000/api/hello')
+.then(
+    (response) => {
+        return response.text()
+    }
+)
+.then(value => {
+    console.log(value)
+})

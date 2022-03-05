@@ -1,8 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin')
-const TerserWebpackPlugin = require('terser-webpack-plugin')
 const yaml = require('yaml')
 
 module.exports = {
@@ -13,12 +11,12 @@ module.exports = {
     output: {
         path: path.join(__dirname, '../dist'),
         clean: true,
-        assetModuleFilename: 'images/[contenthash].[ext]'
+        assetModuleFilename: 'images/[contenthash].[ext]',
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: './index.html', 
-            filename: 'app.html',
+            filename: 'index.html',
             inject: 'body'
         }),
         new MiniCssExtractPlugin()
